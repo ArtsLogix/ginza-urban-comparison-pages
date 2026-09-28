@@ -1,0 +1,103 @@
+{
+  "metadata": {
+    "retrieved_on": "2026-09-27",
+    "boundary_source": "e-Stat 2020 Census small-area boundaries (town/chome polygons)",
+    "parks_source": "Tokyo Green Open Data, released 2026-02-02; park records include source dates that vary by layer",
+    "trees_source": "Tokyo Green Open Data street-tree GIS; Tokyo-managed ward-road trees are points, municipal route totals are apportioned by clipped route length",
+    "osm_source": "OpenStreetMap API snapshot retrieved 2026-09-27; cafe, toilet, pedestrian-space mapping is community mapped",
+    "area_unit": "km2",
+    "caveats": [
+      "Public-space ratio uses open-area polygons for parks and open sections; it is not green-cover ratio and excludes fee-based gardens, zoos, cemeteries, and planned/unopened areas.",
+      "Street-tree density includes Tokyo-managed tree points plus an estimate from ward-road route totals; national roads and any unmapped or unavailable tree records are not included.",
+      "OpenStreetMap cafe and toilet counts reflect mapped features, not a complete business or municipal facility register. Explicitly private or customer-only toilets are excluded.",
+      "Pedestrian length includes mapped footways, pedestrian streets, paths, and steps. Vehicle carriageways are excluded; density does not measure sidewalk width or pedestrian volume."
+    ]
+  },
+  "areas": {
+    "ginza": {
+      "name": "銀座",
+      "boundary": "銀座1〜8丁目",
+      "area_km2": 0.877,
+      "open_space_area_ha": 0.9,
+      "open_space_ratio_pct": 1.02,
+      "street_tree_count_point": 635,
+      "street_tree_count_route_estimate": 1383.0,
+      "street_tree_count_estimate": 2018.0,
+      "street_trees_per_km2": 2302.3,
+      "public_toilets_osm": 6,
+      "public_toilets_per_km2": 6.8,
+      "cafes_osm": 80,
+      "cafes_per_km2": 91.3,
+      "pedestrian_route_km": 38.02,
+      "pedestrian_route_km_per_km2": 43.38
+    },
+    "marunouchi": {
+      "name": "丸の内",
+      "boundary": "丸の内1〜3丁目",
+      "area_km2": 0.647,
+      "open_space_area_ha": 2.44,
+      "open_space_ratio_pct": 3.76,
+      "street_tree_count_point": 663,
+      "street_tree_count_route_estimate": 207.6,
+      "street_tree_count_estimate": 870.6,
+      "street_trees_per_km2": 1344.8,
+      "public_toilets_osm": 18,
+      "public_toilets_per_km2": 27.8,
+      "cafes_osm": 38,
+      "cafes_per_km2": 58.7,
+      "pedestrian_route_km": 48.39,
+      "pedestrian_route_km_per_km2": 74.75
+    },
+    "nihonbashi": {
+      "name": "日本橋・室町",
+      "boundary": "日本橋1〜3丁目＋日本橋室町1〜4丁目",
+      "area_km2": 0.45,
+      "open_space_area_ha": 0.28,
+      "open_space_ratio_pct": 0.63,
+      "street_tree_count_point": 278,
+      "street_tree_count_route_estimate": 746.0,
+      "street_tree_count_estimate": 1024.0,
+      "street_trees_per_km2": 2275.2,
+      "public_toilets_osm": 6,
+      "public_toilets_per_km2": 13.3,
+      "cafes_osm": 42,
+      "cafes_per_km2": 93.3,
+      "pedestrian_route_km": 16.88,
+      "pedestrian_route_km_per_km2": 37.5
+    },
+    "omotesando": {
+      "name": "表参道",
+      "boundary": "北青山3丁目＋神宮前4〜6丁目",
+      "area_km2": 0.787,
+      "open_space_area_ha": 1.04,
+      "open_space_ratio_pct": 1.32,
+      "street_tree_count_point": 516,
+      "street_tree_count_route_estimate": 0.0,
+      "street_tree_count_estimate": 516.0,
+      "street_trees_per_km2": 655.9,
+      "public_toilets_osm": 4,
+      "public_toilets_per_km2": 5.1,
+      "cafes_osm": 91,
+      "cafes_per_km2": 115.7,
+      "pedestrian_route_km": 12.76,
+      "pedestrian_route_km_per_km2": 16.22
+    },
+    "asakusa": {
+      "name": "浅草",
+      "boundary": "浅草1〜2丁目",
+      "area_km2": 0.318,
+      "open_space_area_ha": 0.01,
+      "open_space_ratio_pct": 0.03,
+      "street_tree_count_point": 35,
+      "street_tree_count_route_estimate": 87.5,
+      "street_tree_count_estimate": 122.5,
+      "street_trees_per_km2": 384.9,
+      "public_toilets_osm": 10,
+      "public_toilets_per_km2": 31.4,
+      "cafes_osm": 44,
+      "cafes_per_km2": 138.3,
+      "pedestrian_route_km": 11.69,
+      "pedestrian_route_km_per_km2": 36.73
+    }
+  }
+}
