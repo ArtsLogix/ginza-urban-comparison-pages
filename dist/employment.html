@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="銀座と東京の主要地区について、全従業者を100%とした産業別就業構成を比較">
+  <title>就業構成｜銀座・都市比較ダッシュボード</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23111116'/%3E%3Cpath d='M14 17h36v6H14zm0 12h36v6H14zm0 12h36v6H14z' fill='%23ffb23e'/%3E%3Ccircle cx='32' cy='32' r='8' fill='%232a6df4'/%3E%3C/svg%3E">
+  <style>
+    :root{--ink:#f5f5f2;--muted:#aaaab2;--bg:#101014;--panel:#19191f;--panel2:#222229;--line:#373740;--amber:#ffb23e;--max:1180px}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic UI","Yu Gothic",Meiryo,sans-serif;font-size:16px;line-height:1.58}a{color:inherit}.shell{max-width:var(--max);margin:auto;padding:0 28px 64px}
+    .topbar{display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:72px;border-bottom:1px solid var(--line)}.brand{font-weight:780;letter-spacing:.02em}.brand small{display:block;color:var(--muted);font-size:.72rem;font-weight:500;letter-spacing:.08em}.topnav{display:flex;gap:8px;flex-wrap:wrap}.back{border:1px solid var(--line);border-radius:999px;padding:7px 12px;color:#d3d3da;text-decoration:none;font-size:.78rem}.back.active{border-color:#65502e;color:#ffd28a;background:#2a2419}.back:hover,.back:focus-visible{border-color:#777;outline:none}
+    .hero{padding:38px 0 24px}.eyebrow{color:var(--amber);font-size:.78rem;letter-spacing:.13em;font-weight:800}.hero h1{font-size:clamp(2rem,5vw,3.9rem);line-height:1.08;letter-spacing:-.05em;margin:10px 0 12px}.hero p{color:#c7c7cc;max-width:850px;margin:0}.legend{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin-top:20px}.legend-item{display:grid;grid-template-columns:10px 1fr;gap:8px;background:var(--panel);border:1px solid var(--line);border-radius:5px;padding:10px 11px}.legend-title{display:block;color:#e7e7eb;font-size:.79rem;font-weight:750;line-height:1.35}.legend-detail{display:block;color:var(--muted);font-size:.69rem;line-height:1.4;margin-top:3px}.swatch{width:10px;height:10px;border-radius:2px;display:inline-block;margin-top:3px}
+    .compare{background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:22px;margin-bottom:18px}.compare-head{display:flex;justify-content:space-between;gap:20px;align-items:end;margin-bottom:18px}.compare h2,.detail-head h2{margin:0;font-size:1.25rem}.compare-head p{margin:0;color:var(--muted);font-size:.82rem}.band-table{display:grid;gap:12px}.band-row{display:grid;grid-template-columns:110px 1fr;gap:12px;align-items:center}.band-name{font-size:.86rem;font-weight:700}.band{height:36px;display:flex;overflow:hidden;border-radius:4px}.segment{height:100%;display:grid;place-items:center;min-width:0;color:#fff;font-size:.69rem;font-weight:750;font-variant-numeric:tabular-nums;white-space:nowrap;overflow:hidden}.segment.light{color:#16130d}.detail-head{margin:34px 0 14px}.detail-head p{color:var(--muted);font-size:.84rem;margin:4px 0 0}
+    .charts{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.chart-card{background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:22px;min-width:0}.chart-card.ginza{border-color:#67512d;background:linear-gradient(150deg,#211e18 0%,#19191f 70%)}.chart-card h2{font-size:1.3rem;margin:0}.boundary{color:var(--muted);font-size:.76rem;margin-top:2px}.character{margin-top:12px;padding:10px 12px;border-left:3px solid var(--amber);background:rgba(255,255,255,.035);color:#e4e4e7;font-size:.85rem;line-height:1.45;min-height:3.9em}.viz{display:grid;place-items:center;padding:18px 0 16px}.pie{width:min(210px,68vw);aspect-ratio:1;border-radius:50%;position:relative;box-shadow:0 0 0 1px rgba(255,255,255,.08)}.pie:after{content:'';position:absolute;inset:31%;border-radius:50%;background:var(--panel);box-shadow:0 0 0 1px rgba(255,255,255,.06)}.ginza .pie:after{background:#1d1b18}.pie-center{position:absolute;z-index:1;inset:34%;display:grid;place-content:center;text-align:center;font-size:.69rem;color:var(--muted);line-height:1.25}.pie-center strong{display:block;color:var(--ink);font-size:1.08rem;font-variant-numeric:tabular-nums}.rows{display:grid;gap:7px}.row{display:grid;grid-template-columns:12px 1fr auto;gap:8px;align-items:center;font-size:.8rem}.row strong{font-variant-numeric:tabular-nums}.dot{width:9px;height:9px;border-radius:2px}.total{margin-top:15px;padding-top:13px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:end;color:var(--muted);font-size:.78rem}.total strong{color:var(--ink);font-size:1.25rem;font-variant-numeric:tabular-nums}
+    .reading{margin-top:18px;background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:22px;display:grid;grid-template-columns:.8fr 2.2fr;gap:24px}.reading h2{margin:0;font-size:1.25rem}.reading p{margin:0;color:#d0d0d5}.reading small{display:block;color:var(--muted);margin-top:8px}
+    details{margin-top:18px;background:var(--panel);border:1px solid var(--line);padding:16px 18px;border-radius:6px}summary{cursor:pointer;font-weight:700}details p,details li{color:var(--muted);font-size:.87rem}.source{color:#bdd0ff;text-underline-offset:3px}.footer{color:#777;font-size:.76rem;margin-top:28px;display:flex;justify-content:space-between;gap:20px}
+    @media(max-width:900px){.legend{grid-template-columns:repeat(2,minmax(0,1fr))}.charts{grid-template-columns:repeat(2,1fr)}.reading{grid-template-columns:1fr}}@media(max-width:600px){.shell{padding:0 16px 44px}.topbar{padding:14px 0}.legend{grid-template-columns:1fr}.charts{grid-template-columns:1fr}.hero{padding:28px 0 20px}.chart-card{padding:20px}.compare{padding:18px;overflow-x:auto}.compare-head{display:block}.compare-head p{margin-top:4px}.band-table{min-width:700px}.footer{display:block}}
+  </style>
+</head>
+<body>
+<main class="shell">
+  <header class="topbar"><div class="brand">銀座・都市比較<small>GINZA URBAN COMPARISON</small></div><nav class="topnav" aria-label="ページ"><a class="back" href="index.html">都市機能</a><a class="back active" href="employment.html">就業構成</a><a class="back" href="buildings.html">建物用途</a><a class="back" href="stay.html">滞在環境</a><a class="back" href="residents.html">人口・世帯</a><a class="back" href="change.html">街の変化</a></nav></header>
+  <section class="hero">
+    <div class="eyebrow">EMPLOYMENT COMPOSITION</div>
+    <h1>100人の働き手で見る、<br>街の機能構成。</h1>
+    <p>各地区の全従業者を100%として、8つの産業グループに再集計しました。従来の「その他」は、ものづくり・インフラ、生活・対人サービス、公共・その他サービスに分けています。</p>
+    <div class="legend" id="legend" aria-label="凡例"></div>
+  </section>
+  <section class="compare" aria-label="5地区の就業構成比較">
+    <div class="compare-head"><h2>5地区を一度に比較</h2><p>各帯の横幅を100%として、働く人の構成を表示</p></div>
+    <div class="band-table" id="bands"></div>
+  </section>
+  <div class="detail-head"><h2>各地区の内訳</h2><p>円グラフと構成比で、地区ごとの特徴を確認</p></div>
+  <section class="charts" id="charts" aria-label="5地区の就業構成"></section>
+  <section class="reading">
+    <h2>銀座は、業務・サービス・商業が重なる</h2>
+    <div><p>銀座は公共・その他サービス30.6%、オフィス系22.5%、消費者向け商業11.3%、飲食サービス10.2%の順です。単一機能への偏りが小さく、業務・サービス・商業の複合性が確認できます。</p><small>公共・その他サービスには、複合サービス、他に分類されないサービス、公務を含みます。人材派遣、ビルメンテナンス、各種事業サービスなどもこの区分です。</small></div>
+  </section>
+  <details>
+    <summary>8分類の定義と注意点</summary>
+    <p>2021年経済センサスの町丁・大字別集計を使用しています。分母は各地区の全産業従業者数、分子は各産業グループの従業者数です。</p>
+    <ul>
+      <li>オフィス系：情報通信、金融・保険、不動産・物品賃貸、学術研究・専門技術サービス</li>
+      <li>ものづくり・インフラ：農林漁業、鉱業、建設、製造、電気・ガス等、運輸・郵便</li>
+      <li>企業向け商業：卸売業／消費者向け商業：小売業</li>
+      <li>飲食サービス：飲食店、持ち帰り・配達飲食サービス／宿泊業：宿泊業</li>
+      <li>生活・対人サービス：生活関連・娯楽、教育、医療・福祉</li>
+      <li>公共・その他サービス：複合サービス、他に分類されないサービス、公務</li>
+    </ul>
+    <p>これは建物用途、床面積、店舗数、客室数の割合ではありません。各産業の本社・管理部門も所属産業に分類されます。<a class="source" href="https://www.e-stat.go.jp/stat-search/files?cycle=0&layout=datalist&page=1&tclass1=000001145649&tclass2=000001145667&tclass3=000001166446&tclass4val=0&toukei=00200553&tstat=000001145590" target="_blank" rel="noreferrer">出典：e-Stat 令和3年経済センサス</a></p>
+  </details>
+  <footer class="footer"><span>銀座まちづくりビジョン検討｜都市比較ダッシュボード</span><span>Version 1.0 · 2026.09</span></footer>
+</main>
+<script>
+const categories=[
+  {key:'office',label:'オフィス系',short:'オフィス',color:'#5288ff',detail:'情報通信、金融・保険、不動産、専門・技術サービス'},
+  {key:'making',label:'ものづくり・インフラ',short:'もの・インフラ',color:'#45a5b5',detail:'農林漁業、鉱業、建設、製造、電気・ガス、運輸・郵便'},
+  {key:'wholesale',label:'企業向け商業（卸売）',short:'卸売',color:'#9b79ff',detail:'商社、問屋など事業者向けの商品販売'},
+  {key:'retail',label:'消費者向け商業（小売）',short:'小売',color:'#ffb23e',light:true,detail:'百貨店、専門店など消費者向けの商品販売'},
+  {key:'food',label:'飲食サービス',short:'飲食',color:'#ef6f6c',detail:'飲食店、持ち帰り・配達飲食サービス'},
+  {key:'hotel',label:'宿泊業',short:'宿泊',color:'#68c4a3',light:true,detail:'ホテル、旅館、簡易宿所など'},
+  {key:'life',label:'生活・対人サービス',short:'生活サービス',color:'#d58ad7',light:true,detail:'生活関連・娯楽、教育、医療・福祉'},
+  {key:'public',label:'公共・その他サービス',short:'公共・他サービス',color:'#62646f',detail:'複合サービス、各種事業サービス、公務など'}
+];
+const cities=[
+  {key:'ginza',name:'銀座',boundary:'銀座1〜8丁目',total:156701,character:'業務・サービス・商業が重なる、多機能な都心商業地',values:{office:35203,retail:17652,food:16011,hotel:1045,wholesale:10488,making:14771,life:13554,public:47977}},
+  {key:'marunouchi',name:'丸の内',boundary:'丸の内1〜3丁目',total:198375,character:'オフィス系が過半。ものづくり・インフラと企業向け商業も厚い',values:{office:101931,retail:9000,food:7888,hotel:1484,wholesale:26335,making:28143,life:2481,public:21113}},
+  {key:'nihonbashi',name:'日本橋・室町',boundary:'日本橋1〜3丁目＋日本橋室町1〜4丁目',total:99799,character:'オフィス系と企業向け商業が中心のB2B型都心',values:{office:36710,retail:8098,food:6009,hotel:502,wholesale:21391,making:7217,life:4441,public:15431}},
+  {key:'omotesando',name:'表参道',boundary:'北青山3丁目＋神宮前4〜6丁目',total:39043,character:'オフィス・消費者向け商業・生活サービスが拮抗する複合型',values:{office:10058,retail:9641,food:3754,hotel:557,wholesale:3795,making:1270,life:8036,public:1932}},
+  {key:'asakusa',name:'浅草',boundary:'浅草1〜2丁目',total:8189,character:'飲食と消費者向け商業が全体の3分の2を占める来街者対応型',values:{office:563,retail:2233,food:3220,hotel:394,wholesale:151,making:216,life:1049,public:363}}
+];
+const pct=(city,key)=>city.values[key]/city.total*100;
+const display=value=>value.toFixed(1)+'%';
+document.querySelector('#legend').innerHTML=categories.map(c=>`<div class="legend-item"><i class="swatch" style="background:${c.color}"></i><div><span class="legend-title">${c.label}</span><span class="legend-detail">${c.detail}</span></div></div>`).join('');
+document.querySelector('#bands').innerHTML=cities.map(city=>{
+  const aria=categories.map(c=>`${c.label}${display(pct(city,c.key))}`).join('、');
+  const segments=categories.map(c=>{const p=pct(city,c.key);const text=p>=9?`${c.short} ${p.toFixed(1)}`:'';return `<span class="segment ${c.light?'light':''}" style="width:${p}%;background:${c.color}" title="${c.label} ${display(p)}">${text}</span>`}).join('');
+  return `<div class="band-row"><div class="band-name">${city.name}</div><div class="band" role="img" aria-label="${city.name}：${aria}">${segments}</div></div>`;
+}).join('');
+document.querySelector('#charts').innerHTML=cities.map(city=>{
+  let cursor=0;const stops=[];
+  for(const c of categories){const start=cursor;cursor+=pct(city,c.key);stops.push(`${c.color} ${start}% ${cursor}%`)}
+  const rows=categories.map(c=>`<div class="row"><i class="dot" style="background:${c.color}"></i><span>${c.label}</span><strong>${display(pct(city,c.key))}</strong></div>`).join('');
+  return `<article class="chart-card ${city.key==='ginza'?'ginza':''}"><h2>${city.name}</h2><div class="boundary">${city.boundary}</div><div class="character">${city.character}</div><div class="viz"><div class="pie" role="img" aria-label="${city.name}の就業構成" style="background:conic-gradient(${stops.join(',')})"><div class="pie-center">全従業者<strong>100%</strong></div></div></div><div class="rows">${rows}</div><div class="total"><span>全従業者数</span><strong>${city.total.toLocaleString('ja-JP')}人</strong></div></article>`;
+}).join('');
+</script>
+</body>
+</html>
