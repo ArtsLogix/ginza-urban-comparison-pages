@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="銀座1〜8丁目と東京の主要地区を、公開データから比較する都市プロフィール・ダッシュボード">
+  <title>銀座・都市比較ダッシュボード</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23111116'/%3E%3Cpath d='M14 17h36v6H14zm0 12h36v6H14zm0 12h36v6H14z' fill='%23ffb23e'/%3E%3Ccircle cx='32' cy='32' r='8' fill='%232a6df4'/%3E%3C/svg%3E">
+  <style>
+    :root{--ink:#f5f5f2;--muted:#aaaab2;--bg:#101014;--panel:#19191f;--panel2:#222229;--line:#373740;--amber:#ffb23e;--blue:#5288ff;--green:#68c4a3;--max:1180px}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic UI","Yu Gothic",Meiryo,sans-serif;font-size:16px;line-height:1.58}
+    button{font:inherit}a{color:inherit}.shell{max-width:var(--max);margin:auto;padding:0 28px 64px}.topbar{display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:72px;border-bottom:1px solid var(--line)}
+    .brand{font-weight:780;letter-spacing:.02em}.brand small{display:block;color:var(--muted);font-size:.72rem;font-weight:500;letter-spacing:.08em}.top-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.stamp{font-size:.78rem;color:var(--muted);margin-right:6px}.page-link{display:inline-block;border:1px solid #65502e;border-radius:999px;padding:7px 12px;color:#ffd28a;text-decoration:none;font-size:.78rem}.page-link.secondary{border-color:var(--line);color:#d3d3da}.page-link:hover,.page-link:focus-visible{background:#2a2419;outline:none}
+    .hero{padding:38px 0 20px}.eyebrow{color:var(--amber);font-size:.78rem;letter-spacing:.13em;font-weight:800}.hero h1{font-size:clamp(2rem,5vw,4.2rem);line-height:1.06;letter-spacing:-.055em;margin:10px 0 12px}.hero p{color:#c7c7cc;max-width:820px;margin:0}
+    .answer{margin-top:20px;background:linear-gradient(135deg,#242119 0%,#19191f 65%);border:1px solid #51442d;border-radius:9px;padding:28px;display:grid;grid-template-columns:1.05fr 1.95fr;gap:30px}.answer-label{color:var(--amber);font-size:.78rem;font-weight:800;letter-spacing:.12em}.answer h2{font-size:clamp(1.5rem,3vw,2.55rem);line-height:1.25;letter-spacing:-.035em;margin:7px 0}.answer p{color:#c8c4bb;margin:0}.answer-points{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.point{background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.09);padding:17px;border-radius:6px}.point strong{display:block;font-size:1.06rem;margin-bottom:5px}.point span{color:var(--muted);font-size:.86rem}.point em{color:var(--amber);font-style:normal}.number{font-variant-numeric:tabular-nums}
+    .section-head{display:flex;justify-content:space-between;gap:24px;align-items:end;margin:44px 0 18px}.section-head h2{font-size:1.5rem;margin:0}.section-head p{color:var(--muted);font-size:.86rem;margin:0;max-width:610px}.districts{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}.chip{border:1px solid var(--line);background:transparent;color:var(--muted);padding:8px 13px;border-radius:999px;cursor:pointer}.chip:hover,.chip:focus-visible{border-color:#777;color:var(--ink);outline:none}.chip.active{background:var(--amber);border-color:var(--amber);color:#151515;font-weight:750}
+    .profile-grid{display:grid;grid-template-columns:1.55fr 1fr;gap:18px}.card{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:22px}.card h3{margin:0;font-size:1.05rem}.sub{color:var(--muted);font-size:.82rem;margin-top:4px}.metric-select{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0}.metric{background:var(--panel2);border:1px solid transparent;color:#c8c8ce;padding:7px 10px;border-radius:4px;cursor:pointer;font-size:.86rem}.metric.active{border-color:var(--amber);color:var(--ink)}.bars{display:grid;gap:12px;margin-top:20px}.bar-row{display:grid;grid-template-columns:108px 1fr 78px;gap:12px;align-items:center}.bar-label{font-size:.9rem;white-space:nowrap}.track{height:21px;background:#27272f;border-radius:2px;overflow:hidden}.fill{height:100%;background:var(--blue);transition:width .4s ease}.bar-row.focus .fill{background:var(--amber)}.bar-row.focus .bar-label{font-weight:800}.bar-value{text-align:right;font-variant-numeric:tabular-nums;font-size:.88rem}.unit{margin-top:15px;color:var(--muted);font-size:.78rem}.source-tag{display:inline-block;margin-right:7px;padding:2px 7px;border:1px solid #50677b;border-radius:3px;color:#b9d8f5;font-size:.69rem;letter-spacing:.05em}
+    .city-name{font-size:1.65rem!important}.boundary{color:var(--muted);font-size:.78rem;margin-top:2px}.feature{padding:16px 0;border-bottom:1px solid var(--line)}.feature:last-child{border:0}.feature b{display:block;font-size:1rem;margin-bottom:3px}.feature span{color:var(--muted);font-size:.86rem}.feature-mark{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--amber);margin-right:9px}.summary{margin-top:18px;padding-top:18px;border-top:1px solid var(--line);color:#d5d5d9}.summary small{display:block;color:var(--muted);margin-top:5px}
+    .matrix{margin-top:18px;overflow:auto;border:1px solid var(--line);border-radius:8px}.matrix table{width:100%;border-collapse:collapse;min-width:880px;background:var(--panel)}.matrix th,.matrix td{padding:14px 16px;border-bottom:1px solid var(--line);text-align:right;font-size:.88rem}.matrix th:first-child,.matrix td:first-child{text-align:left;position:sticky;left:0;background:var(--panel)}.matrix th{color:var(--muted);font-weight:650}.matrix td.focus-col,.matrix th.focus-col{background:#262116;color:var(--ink)}.matrix .high{color:var(--amber);font-weight:800}.matrix .row-unit{display:block;color:#73737d;font-size:.7rem;font-weight:500}.matrix tr:last-child td{border-bottom:0}
+    .method-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}.method{background:var(--panel2);border:1px solid var(--line);border-radius:5px;padding:14px}.method strong{display:block;margin-bottom:4px}.method span{color:var(--muted);font-size:.83rem}
+    details{margin-top:24px;background:var(--panel);border:1px solid var(--line);padding:16px 18px;border-radius:6px}summary{cursor:pointer;font-weight:700}details p,details li{color:var(--muted);font-size:.87rem}.source-links{display:flex;gap:12px;flex-wrap:wrap}.source-links a{color:#bdd0ff;text-underline-offset:3px}.footer{color:#777;font-size:.76rem;margin-top:28px;display:flex;justify-content:space-between;gap:20px}
+    @media(max-width:880px){.answer,.profile-grid{grid-template-columns:1fr}.answer-points{grid-template-columns:1fr 1fr}.section-head{display:block}.section-head p{margin-top:7px}}@media(max-width:560px){.shell{padding:0 16px 44px}.topbar{padding:14px 0}.stamp{display:none}.page-link{font-size:.74rem}.hero{padding:28px 0 16px}.answer{padding:20px}.answer-points,.method-grid{grid-template-columns:1fr}.bar-row{grid-template-columns:84px 1fr 66px}.footer{display:block}}
+  </style>
+</head>
+<body>
+<main class="shell">
+  <header class="topbar">
+    <div class="brand">銀座・都市比較<small>GINZA URBAN COMPARISON</small></div>
+    <div class="top-actions"><div class="stamp">町丁目単位の公開データ比較</div><a class="page-link" href="employment.html">就業構成</a><a class="page-link secondary" href="buildings.html">建物用途</a><a class="page-link secondary" href="stay.html">滞在環境</a><a class="page-link secondary" href="residents.html">人口・世帯</a><a class="page-link secondary" href="change.html">街の変化</a></div>
+  </header>
+  <section class="hero">
+    <div class="eyebrow">GINZA AT A GLANCE</div>
+    <h1>銀座は、東京の中で<br>どんな街なのか。</h1>
+    <p>銀座1〜8丁目を、丸の内、日本橋・室町、表参道、浅草と比較。単純な「多い・少ない」ではなく、働く・買う・泊まる・過ごす機能の組み合わせを見ます。</p>
+  </section>
+  <section class="answer">
+    <div>
+      <div class="answer-label">銀座の特徴</div>
+      <h2>業務都心と観光商業地の<br>「中間」ではなく、両方を重ねた街。</h2>
+      <p>丸の内ほどオフィスに偏らず、浅草ほど観光・宿泊に偏らない。商業を核に複数機能が同居することが、銀座らしさです。</p>
+    </div>
+    <div class="answer-points">
+      <div class="point"><strong><em>オフィス系 22.5%</em></strong><span>従業者構成比は丸の内51.4%、日本橋・室町36.8%を下回り、業務単機能ではない。</span></div>
+      <div class="point"><strong><em>小売 11.3%</em></strong><span>丸の内4.5%、日本橋・室町8.1%より高い一方、表参道24.7%、浅草27.3%ほど特化しない。</span></div>
+      <div class="point"><strong><em>宿泊 0.7%</em></strong><span>浅草4.8%、表参道1.4%を下回る。来街者を支えるが、宿泊主導の街ではない。</span></div>
+      <div class="point"><strong><em>機能の積層</em></strong><span>公開地図上でも商業、文化、生活利便が高密度。突出した一機能より、組み合わせが特徴。</span></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <div><div class="eyebrow">FUNCTIONAL COMPARISON</div><h2>切り口別に見る、5地区の違い</h2></div>
+      <p>オフィス・商業・ホテルは2021年経済センサスの従業者構成比。文化・観光・生活利便・滞在環境はOpenStreetMap登録地物の概算密度です。</p>
+    </div>
+    <div class="districts" aria-label="注目地区">
+      <button class="chip active" data-city="ginza">銀座</button>
+      <button class="chip" data-city="marunouchi">丸の内</button>
+      <button class="chip" data-city="nihonbashi">日本橋・室町</button>
+      <button class="chip" data-city="omotesando">表参道</button>
+      <button class="chip" data-city="asakusa">浅草</button>
+    </div>
+    <div class="profile-grid">
+      <article class="card">
+        <h3>都市機能比較</h3>
+        <div class="sub">分類を選ぶと、地区間の差が切り替わります。</div>
+        <div class="metric-select" id="metrics"></div>
+        <div class="bars" id="bars"></div>
+        <div class="unit" id="unit-note"></div>
+      </article>
+      <aside class="card">
+        <h3 class="city-name" id="focus-name">銀座</h3>
+        <div class="boundary" id="focus-boundary"></div>
+        <div class="sub">比較から見える都市プロフィール</div>
+        <div id="features"></div>
+        <div class="summary" id="summary"></div>
+      </aside>
+    </div>
+    <div class="matrix" id="matrix"></div>
+  </section>
+
+  <details>
+    <summary>対象範囲・データの読み方</summary>
+    <div class="method-grid">
+      <div class="method"><strong>公的統計｜町丁目を厳密に集計</strong><span>銀座1〜8丁目、丸の内1〜3丁目、日本橋1〜3丁目＋日本橋室町1〜4丁目、北青山3丁目＋神宮前4〜6丁目、浅草1〜2丁目。2021年経済センサスの全産業従業者に占める各機能の比率。</span></div>
+      <div class="method"><strong>公開地図｜密度を概算</strong><span>文化・観光・生活利便・滞在環境はOpenStreetMapの登録状況に左右されます。実際の床面積、利用者数、質を示すものではなく、街の機能を探索するための補助指標です。</span></div>
+    </div>
+    <ul>
+      <li>オフィス系：情報通信、金融・保険、不動産・物品賃貸、学術研究・専門技術サービス</li>
+      <li>商業施設：小売業／ホテル：宿泊業</li>
+      <li>文化施設：劇場、美術館、ギャラリー、歴史地物等</li>
+      <li>生活利便施設：食品、薬局、診療、教育等／滞在環境：ベンチ、トイレ、公園、庭園等</li>
+    </ul>
+    <div class="source-links">
+      <a href="https://www.e-stat.go.jp/stat-search/files?cycle=0&layout=datalist&page=1&tclass1=000001145649&tclass2=000001145667&tclass3=000001166446&tclass4val=0&toukei=00200553&tstat=000001145590" target="_blank" rel="noreferrer">e-Stat 令和3年経済センサス（町丁・大字別）</a>
+      <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">OpenStreetMap / ODbL</a>
+      <a href="https://catalog.data.metro.tokyo.lg.jp/dataset/t000008d2000000019" target="_blank" rel="noreferrer">東京都 土地利用現況調査GISデータ</a>
+    </div>
+  </details>
+  <footer class="footer"><span>銀座まちづくりビジョン検討｜都市比較ダッシュボード</span><span>Version 1.0 · 2026.09</span></footer>
+</main>
+<script>
+const metrics = {
+  office:{label:'オフィス',source:'e-Stat',unit:'従業者構成比',suffix:'%',mode:'direct'},
+  shop:{label:'商業施設',source:'e-Stat',unit:'小売業の従業者構成比',suffix:'%',mode:'direct'},
+  hotel:{label:'ホテル',source:'e-Stat',unit:'宿泊業の従業者構成比',suffix:'%',mode:'direct'},
+  culture:{label:'文化施設',source:'OSM',unit:'登録地物／概算1km²',suffix:'',mode:'density'},
+  tourism:{label:'観光施設',source:'OSM',unit:'登録地物／概算1km²',suffix:'',mode:'density'},
+  daily:{label:'生活利便施設',source:'OSM',unit:'登録地物／概算1km²',suffix:'',mode:'density'},
+  public:{label:'滞在環境',source:'OSM',unit:'登録地物／概算1km²',suffix:'',mode:'density'}
+};
+const cities = {
+  ginza:{name:'銀座',boundary:'銀座1〜8丁目',area:1.13,values:{office:22.5,shop:11.3,hotel:.7,culture:61,tourism:8,daily:88,public:39},highlights:[['複合性','業務・小売・宿泊のいずれか一つに偏り切らない。'],['都心商業','小売比率は業務都心より高く、街路型商業地より低い。'],['文化・生活','公開地図上では文化と生活利便も高密度。']],summary:'都心の就業集積を持ちながら、商業・文化・来街者機能を重ねる多層型の街。',detail:'強みは「最大値」よりも、異なる機能が近接することにある。'},
+  marunouchi:{name:'丸の内',boundary:'丸の内1〜3丁目',area:.73,values:{office:51.4,shop:4.5,hotel:.7,culture:17,tourism:null,daily:15,public:38},highlights:[['業務特化','オフィス系従業者が全体の過半を占める。'],['選択的商業','小売比率は5地区で最も低い。'],['公開空間','滞在環境の登録密度は銀座を上回る。']],summary:'大規模建物と公開空間を核にした、明確な業務中心地。',detail:'銀座と比べ、都市機能の重心がオフィスに大きく寄る。'},
+  nihonbashi:{name:'日本橋・室町',boundary:'日本橋1〜3丁目＋日本橋室町1〜4丁目',area:.80,values:{office:36.8,shop:8.1,hotel:.5,culture:47,tourism:2,daily:57,public:16},highlights:[['業務優位','オフィス系比率は銀座より14.3ポイント高い。'],['商業併存','小売比率は丸の内より高いが、銀座には及ばない。'],['文化集積','公開地図上の文化密度は銀座に近い。']],summary:'歴史性と業務集積、商業が均衡する都心複合地区。',detail:'銀座より業務寄り、丸の内より商業・文化寄りの構成。'},
+  omotesando:{name:'表参道',boundary:'北青山3丁目＋神宮前4〜6丁目',area:1.27,values:{office:25.8,shop:24.7,hotel:1.4,culture:null,tourism:8,daily:113,public:null},highlights:[['小売特化','小売従業者比率が銀座の約2.2倍。'],['業務も共存','オフィス系比率は銀座よりやや高い。'],['街路型商業','商業が表通りと裏通りに広がる。']],summary:'小売への重心が強い、街路型の商業・業務複合地。',detail:'銀座より「買う機能」の構成比が明確に高い。'},
+  asakusa:{name:'浅草',boundary:'浅草1〜2丁目',area:1.28,values:{office:6.9,shop:27.3,hotel:4.8,culture:113,tourism:10,daily:110,public:72},highlights:[['観光商業','小売・宿泊の構成比が5地区で最も高い。'],['低い業務比率','オフィス系比率は銀座の3分の1以下。'],['滞在機能','文化・生活利便・滞在環境も高密度。']],summary:'観光・商業・宿泊に明確な重心を持つ、生活併存型観光地。',detail:'銀座と比べ、来街者向け機能への特化が際立つ。'}
+};
+let activeCity='ginza', activeMetric='office';
+const metricValue=(city,key)=>city.values[key]==null?null:(metrics[key].mode==='density'?Math.round(city.values[key]/city.area):city.values[key]);
+const displayValue=(value,key)=>value==null?'—':(metrics[key].mode==='direct'?value.toFixed(1)+'%':String(value));
+function renderMetrics(){
+  document.querySelector('#metrics').innerHTML=Object.entries(metrics).map(([key,m])=>`<button class="metric ${key===activeMetric?'active':''}" data-metric="${key}">${m.label}</button>`).join('');
+  document.querySelectorAll('[data-metric]').forEach(button=>button.onclick=()=>{activeMetric=button.dataset.metric;render()});
+}
+function renderBars(){
+  const rows=Object.entries(cities).map(([key,city])=>[key,city,metricValue(city,activeMetric)]);
+  const max=Math.max(1,...rows.map(row=>row[2]).filter(value=>value!=null));
+  document.querySelector('#bars').innerHTML=rows.map(([key,city,value])=>`<div class="bar-row ${key===activeCity?'focus':''}"><div class="bar-label">${city.name}</div><div class="track"><div class="fill" style="width:${value==null?0:value/max*100}%"></div></div><div class="bar-value">${displayValue(value,activeMetric)}</div></div>`).join('');
+  const m=metrics[activeMetric];
+  document.querySelector('#unit-note').innerHTML=`<span class="source-tag">${m.source}</span>${m.unit}`;
+}
+function renderFocus(){
+  const city=cities[activeCity];
+  document.querySelector('#focus-name').textContent=city.name;
+  document.querySelector('#focus-boundary').textContent=city.boundary;
+  document.querySelector('#features').innerHTML=city.highlights.map(item=>`<div class="feature"><b><span class="feature-mark"></span>${item[0]}</b><span>${item[1]}</span></div>`).join('');
+  document.querySelector('#summary').innerHTML=`${city.summary}<small>${city.detail}</small>`;
+}
+function renderMatrix(){
+  const cityRows=Object.entries(cities);
+  let html='<table><thead><tr><th>都市機能</th>'+cityRows.map(([key,city])=>`<th class="${key===activeCity?'focus-col':''}">${city.name}</th>`).join('')+'</tr></thead><tbody>';
+  for(const [metricKey,m] of Object.entries(metrics)){
+    const vals=cityRows.map(([key,city])=>metricValue(city,metricKey));
+    const max=Math.max(...vals.filter(value=>value!=null));
+    html+=`<tr><td>${m.label}<span class="row-unit">${m.source}｜${m.mode==='direct'?'構成比 %':'概算 /km²'}</span></td>`+
+      cityRows.map(([key,city],i)=>`<td class="${key===activeCity?'focus-col':''} ${vals[i]!=null&&vals[i]===max?'high':''}">${displayValue(vals[i],metricKey)}</td>`).join('')+'</tr>';
+  }
+  html+='</tbody></table>';
+  document.querySelector('#matrix').innerHTML=html;
+}
+function render(){
+  renderMetrics();renderBars();renderFocus();renderMatrix();
+  document.querySelectorAll('[data-city]').forEach(button=>button.classList.toggle('active',button.dataset.city===activeCity));
+}
+document.querySelectorAll('[data-city]').forEach(button=>button.onclick=()=>{activeCity=button.dataset.city;render()});
+render();
+</script>
+</body>
+</html>
