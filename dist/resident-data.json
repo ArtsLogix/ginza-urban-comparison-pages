@@ -1,0 +1,30 @@
+{
+  "metadata": {
+    "current_snapshot": "2026-01-01",
+    "current_source": "東京都の住民基本台帳による町丁別世帯数・男女別人口（人口総数）。日本人・外国人を含む。",
+    "census_year": 2020,
+    "census_source": "令和2年国勢調査 小地域集計（町丁・字等）",
+    "area_source": "2020年国勢調査町丁目境界（滞在環境ページと同一）",
+    "age_share_denominator": "年齢不詳を除く年齢判明人口",
+    "household_share_denominator": "国勢調査の一般世帯数",
+    "notes": [
+      "人口・世帯総数は2026年1月1日住民基本台帳、年齢・世帯類型は2020年国勢調査であり、基準年が異なる。",
+      "国勢調査の秘匿値は補完していない。丸の内の年齢・世帯類型は秘匿のため比較不可。",
+      "日本橋室町は秘匿された丁目を含むため、2020年国勢調査では日本橋室町の町域合算値を利用。",
+      "年齢構成比は年齢不詳を除いて算出。表参道は年齢不詳の割合が比較的高い。",
+      "住宅の建て方・所有関係は2020年国勢調査の主世帯を分母とする。借家は公営・UR等、民営、給与住宅の合計。"
+    ],
+    "sources": {
+      "current": "https://www.toukei.metro.tokyo.lg.jp/juukiy/2026/jy26q10501.htm",
+      "census": "https://www.e-stat.go.jp/stat-search/files?cycle=0&layout=datalist&page=1&tclass1=000001136472&tclass3val=0&toukei=00200521&tstat=000001136464",
+      "tenure": "https://www.e-stat.go.jp/stat-search/files?cycle=0&tclass=000001147861"
+    }
+  },
+  "areas": {
+    "ginza": {"name":"銀座","boundary":"銀座1〜8丁目","area_km2":0.877,"population_2026":3422,"households_2026":2430,"density_per_km2":3904,"persons_per_household_2026":1.41,"census_2020":{"population":3358,"households":2332,"age":{"under15":193,"workingAge":2501,"over65":662,"unknown":2,"sharesPct":{"under15":5.8,"workingAge":74.5,"over65":19.7}},"householdsByType":{"single":1659,"coupleOnly":295,"coupleWithChildren":178,"other":200,"generalHouseholds":2332,"sharesPct":{"single":71.1,"coupleOnly":12.7,"coupleWithChildren":7.6,"other":8.6}},"housing":{"mainHouseholds":2194,"tenure":{"owner":549,"rental":1645,"ownerPct":25.0,"rentalPct":75.0},"dwellingType":{"detached":87,"lowRiseApartment":37,"highRiseApartment":2017,"other":53,"detachedPct":4.0,"lowRiseApartmentPct":1.7,"highRiseApartmentPct":91.9,"otherPct":2.4}}}},
+    "marunouchi": {"name":"丸の内","boundary":"丸の内1〜3丁目","area_km2":0.647,"population_2026":8,"households_2026":5,"density_per_km2":12,"persons_per_household_2026":1.60,"census_2020":{"population":null,"households":null,"age":null,"householdsByType":null,"housing":null,"status":"秘匿のため町丁目合算値を算出できない"}},
+    "nihonbashi": {"name":"日本橋・室町","boundary":"日本橋1〜3丁目＋日本橋室町1〜4丁目","area_km2":0.450,"population_2026":539,"households_2026":352,"density_per_km2":1198,"persons_per_household_2026":1.53,"census_2020":{"population":607,"households":378,"age":{"under15":48,"workingAge":411,"over65":148,"unknown":0,"sharesPct":{"under15":7.9,"workingAge":67.7,"over65":24.4}},"householdsByType":{"single":237,"coupleOnly":57,"coupleWithChildren":46,"other":38,"generalHouseholds":378,"sharesPct":{"single":62.7,"coupleOnly":15.1,"coupleWithChildren":12.2,"other":10.1}},"housing":{"mainHouseholds":324,"tenure":{"owner":114,"rental":210,"ownerPct":35.2,"rentalPct":64.8},"dwellingType":{"detached":23,"lowRiseApartment":19,"highRiseApartment":225,"other":57,"detachedPct":7.1,"lowRiseApartmentPct":5.9,"highRiseApartmentPct":69.4,"otherPct":17.6}}}},
+    "omotesando": {"name":"表参道","boundary":"北青山3丁目＋神宮前4〜6丁目","area_km2":0.787,"population_2026":4886,"households_2026":2697,"density_per_km2":6208,"persons_per_household_2026":1.81,"census_2020":{"population":4514,"households":2470,"age":{"under15":409,"workingAge":2433,"over65":1214,"unknown":458,"sharesPct":{"under15":10.1,"workingAge":60.0,"over65":29.9}},"householdsByType":{"single":1325,"coupleOnly":392,"coupleWithChildren":433,"other":320,"generalHouseholds":2470,"sharesPct":{"single":53.6,"coupleOnly":15.9,"coupleWithChildren":17.5,"other":13.0}},"housing":{"mainHouseholds":2400,"tenure":{"owner":1326,"rental":1074,"ownerPct":55.3,"rentalPct":44.8},"dwellingType":{"detached":558,"lowRiseApartment":1263,"highRiseApartment":527,"other":52,"detachedPct":23.2,"lowRiseApartmentPct":52.6,"highRiseApartmentPct":22.0,"otherPct":2.2}}}},
+    "asakusa": {"name":"浅草","boundary":"浅草1〜2丁目","area_km2":0.318,"population_2026":3891,"households_2026":2482,"density_per_km2":12236,"persons_per_household_2026":1.57,"census_2020":{"population":3921,"households":106,"age":{"under15":299,"workingAge":2343,"over65":1223,"unknown":56,"sharesPct":{"under15":7.7,"workingAge":60.6,"over65":31.6}},"householdsByType":{"single":65,"coupleOnly":12,"coupleWithChildren":12,"other":17,"generalHouseholds":106,"sharesPct":{"single":61.3,"coupleOnly":11.3,"coupleWithChildren":11.3,"other":16.0}},"housing":{"mainHouseholds":2200,"tenure":{"owner":1237,"rental":963,"ownerPct":56.2,"rentalPct":43.8},"dwellingType":{"detached":624,"lowRiseApartment":252,"highRiseApartment":1217,"other":107,"detachedPct":28.4,"lowRiseApartmentPct":11.5,"highRiseApartmentPct":55.3,"otherPct":4.9}}}}
+  }
+}
