@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="銀座と東京の主要地区について、推計延べ面積に占める建物用途構成を比較">
+  <title>建物用途｜銀座・都市比較ダッシュボード</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23111116'/%3E%3Cpath d='M14 17h36v6H14zm0 12h36v6H14zm0 12h36v6H14z' fill='%23ffb23e'/%3E%3Ccircle cx='32' cy='32' r='8' fill='%232a6df4'/%3E%3C/svg%3E">
+  <style>
+    :root{--ink:#f5f5f2;--muted:#aaaab2;--bg:#101014;--panel:#19191f;--panel2:#222229;--line:#373740;--amber:#ffb23e;--blue:#5288ff;--max:1180px}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic UI","Yu Gothic",Meiryo,sans-serif;font-size:16px;line-height:1.58}button{font:inherit}a{color:inherit}.shell{max-width:var(--max);margin:auto;padding:0 28px 64px}
+    .topbar{display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:72px;border-bottom:1px solid var(--line)}.brand{font-weight:780;letter-spacing:.02em}.brand small{display:block;color:var(--muted);font-size:.72rem;font-weight:500;letter-spacing:.08em}.nav{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.nav a{border:1px solid var(--line);border-radius:999px;padding:7px 11px;color:#d3d3da;text-decoration:none;font-size:.76rem}.nav a.active{border-color:#65502e;color:#ffd28a;background:#2a2419}.nav a:hover,.nav a:focus-visible{border-color:#777;outline:none}
+    .hero{padding:38px 0 20px}.eyebrow{color:var(--amber);font-size:.78rem;letter-spacing:.13em;font-weight:800}.hero h1{font-size:clamp(2rem,5vw,4rem);line-height:1.06;letter-spacing:-.055em;margin:10px 0 12px}.hero p{color:#c7c7cc;max-width:850px;margin:0}
+    .answer{margin-top:20px;background:linear-gradient(135deg,#242119 0%,#19191f 67%);border:1px solid #51442d;border-radius:9px;padding:28px;display:grid;grid-template-columns:1.25fr 1.75fr;gap:30px}.answer-label{color:var(--amber);font-size:.78rem;font-weight:800;letter-spacing:.12em}.answer h2{font-size:clamp(1.45rem,3vw,2.4rem);line-height:1.25;letter-spacing:-.035em;margin:7px 0}.answer p{color:#c8c4bb;margin:0}.answer-mix{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.answer-mix-item{background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.09);padding:17px;border-radius:6px}.answer-mix-item strong{display:block;color:var(--amber);font-size:1.7rem;line-height:1.1;font-variant-numeric:tabular-nums}.answer-mix-item span{display:block;color:#e5e5e7;font-weight:700;font-size:.84rem;margin-top:7px}.answer-mix-item small{display:block;color:var(--muted);font-size:.72rem;margin-top:3px;line-height:1.4}
+    .section-head{display:flex;justify-content:space-between;gap:24px;align-items:end;margin:44px 0 18px}.section-head h2{font-size:1.5rem;margin:0}.section-head p{color:var(--muted);font-size:.86rem;margin:0;max-width:610px}.card{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:22px}.support-table{overflow:auto}.support-table table{width:100%;border-collapse:collapse;min-width:620px}.support-table th,.support-table td{padding:12px 14px;border-bottom:1px solid var(--line);text-align:right;font-size:.84rem}.support-table th:first-child,.support-table td:first-child{text-align:left}.support-table th{color:var(--muted);font-weight:650}.support-table tr:last-child td{border-bottom:0}.support-table .focus td{background:#262116}.support-table .focus td:first-child{color:var(--amber);font-weight:800}.support-note{color:var(--muted);font-size:.76rem;margin:12px 0 0}
+    .use-card{padding:22px;overflow-x:auto}.use-legend{display:flex;gap:13px;flex-wrap:wrap;margin-bottom:18px;color:#c9c9ce;font-size:.76rem}.legend-item{display:flex;align-items:center;gap:6px}.swatch{width:10px;height:10px;border-radius:2px}.bands{display:grid;gap:14px;min-width:710px}.band-row{display:grid;grid-template-columns:112px 1fr;gap:12px;align-items:center}.band-name{font-size:.88rem;font-weight:700}.band{height:38px;display:flex;overflow:hidden;border-radius:4px}.segment{height:100%;display:grid;place-items:center;min-width:0;color:white;font-size:.68rem;font-weight:750;white-space:nowrap;overflow:hidden}.segment.light{color:#18140e}
+    .profiles{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}.profile{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:18px;min-width:0}.profile.ginza{border-color:#67512d;background:linear-gradient(150deg,#211e18 0%,#19191f 72%)}.profile h3{margin:0;font-size:1.12rem}.boundary{color:var(--muted);font-size:.7rem;margin:2px 0 13px;min-height:2.2em}.profile strong{display:block;color:var(--amber);font-size:.92rem;line-height:1.4}.profile p{color:#c9c9ce;font-size:.79rem;line-height:1.5;margin:7px 0 0}.profile .profile-stat{color:#f2f2f3;font-size:.76rem;margin-top:10px;padding-top:10px;border-top:1px solid var(--line)}
+    .notice{margin-top:18px;background:#17171c;border:1px dashed #4b4b56;border-radius:7px;padding:15px 17px;color:#c4c4ca;font-size:.84rem}.notice strong{color:#f0f0f2}.notice p{margin:3px 0 0;color:var(--muted)}
+    details{margin-top:18px;background:var(--panel);border:1px solid var(--line);padding:16px 18px;border-radius:6px}summary{cursor:pointer;font-weight:700}details p,details li{color:var(--muted);font-size:.86rem}.source{color:#bdd0ff;text-underline-offset:3px}.footer{color:#777;font-size:.76rem;margin-top:28px;display:flex;justify-content:space-between;gap:20px}
+    @media(max-width:940px){.answer{grid-template-columns:1fr}.profiles{grid-template-columns:repeat(2,1fr)}}@media(max-width:680px){.shell{padding:0 16px 44px}.topbar{align-items:flex-start;padding:14px 0}.brand small{display:none}.nav{justify-content:flex-end}.nav a{font-size:.7rem;padding:6px 9px}.hero{padding:28px 0 16px}.answer{padding:20px}.answer-mix{grid-template-columns:1fr}.section-head{display:block}.section-head p{margin-top:6px}.card{padding:18px;overflow-x:auto}.profiles{grid-template-columns:1fr}.footer{display:block}}
+  </style>
+</head>
+<body>
+<main class="shell">
+  <header class="topbar">
+    <div class="brand">銀座・都市比較<small>GINZA URBAN COMPARISON</small></div>
+    <nav class="nav" aria-label="ページ"><a href="index.html">都市機能</a><a href="employment.html">就業構成</a><a class="active" href="buildings.html">建物用途</a><a href="stay.html">滞在環境</a><a href="residents.html">人口・世帯</a><a href="change.html">街の変化</a></nav>
+  </header>
+
+  <section class="hero">
+    <div class="eyebrow">BUILDING USE MIX</div>
+    <h1>建物用途から見る、<br>銀座らしさ。</h1>
+    <p>地区内の推計延べ面積を100%として、建物の主用途構成を比較します。銀座の特徴は、商業一色ではなく、業務と来街者向け用途が同じ街に重なることです。</p>
+  </section>
+
+  <section class="answer">
+    <div>
+      <div class="answer-label">銀座の建物用途</div>
+      <h2>オフィスを核に、商業・宿泊・遊興が<br>厚く重なる「来街者型の業務都心」。</h2>
+      <p>事務所用途は床の過半を占めますが、丸の内・日本橋ほど業務に特化しません。一方、商業と宿泊・遊興を合わせた来街者向け用途は38.8%。業務都心と商業観光地の両方の性格が、建物用途にも表れています。</p>
+    </div>
+    <div class="answer-mix">
+      <div class="answer-mix-item"><strong>53.4%</strong><span>事務所</span><small>丸の内81.4%／日本橋・室町83.4%</small></div>
+      <div class="answer-mix-item"><strong>26.0%</strong><span>商業・住商併用</span><small>表参道38.6%／浅草38.5%</small></div>
+      <div class="answer-mix-item"><strong>12.8%</strong><span>宿泊・遊興・興行</span><small>浅草27.1%／表参道2.9%</small></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <div><div class="eyebrow">USE MIX COMPARISON</div><h2>5地区の建物用途を比較</h2></div>
+      <p>建築面積×地上階数×形状換算係数で推計した延べ面積を100%として表示。帯の違いが、そのまま街の役割の違いです。</p>
+    </div>
+    <article class="card use-card">
+      <div class="use-legend" id="use-legend"></div>
+      <div class="bands" id="use-bands"></div>
+    </article>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <div><div class="eyebrow">DISTRICT PROFILES</div><h2>用途構成から見える、街の役割</h2></div>
+      <p>何のための床が多いかに着目すると、5地区の性格が明確に分かれます。</p>
+    </div>
+    <div class="profiles" id="profiles"></div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <div><div class="eyebrow">SUPPLEMENT</div><h2>建物の形は補足として確認</h2></div>
+      <p>銀座は小粒な建物を7階程度まで積み上げています。用途構成を支える空間的な背景として、3指標に絞りました。</p>
+    </div>
+    <article class="card support-table">
+      <table>
+        <thead><tr><th>地区</th><th>建築面積中央値</th><th>地上階数中央値</th><th>延床密度（推計）</th></tr></thead>
+        <tbody id="support-body"></tbody>
+      </table>
+      <p class="support-note">延床密度は法定容積率ではありません。推計延べ面積を地区面積で割った概算です。</p>
+    </article>
+  </section>
+
+  <div class="notice"><strong>築年は今回の比較に入れていません。</strong><p>5地区を同じ条件で覆う東京都の公開GISには築年属性がないため、推定値で埋めず未掲載としました。</p></div>
+
+  <details>
+    <summary>データの定義・注意点</summary>
+    <ul>
+      <li>出典：東京都「土地利用現況調査 令和3年区部（シェープファイル）」の建物現況・土地利用現況。</li>
+      <li>集計範囲：銀座1〜8丁目、丸の内1〜3丁目、日本橋1〜3丁目＋日本橋室町1〜4丁目、北青山3丁目＋神宮前4〜6丁目、浅草1〜2丁目。</li>
+      <li>従属建築物・非建ぺい地内建築物として調整フラグが立つ図形は除外。建物名称や個別建物の情報は表示していません。</li>
+      <li>延床密度（推計）は法定容積率や敷地単位の容積消化率ではありません。建築面積×地上階数×東京都の形状換算係数を地区面積で割った概算です。</li>
+      <li>建物用途は主用途分類です。複合用途建物の各階用途を個別に表すものではありません。</li>
+    </ul>
+    <p><a class="source" href="https://catalog.data.metro.tokyo.lg.jp/dataset/t000008d2000000019" target="_blank" rel="noreferrer">出典：東京都オープンデータカタログ「土地利用現況調査GISデータ」</a></p>
+  </details>
+  <footer class="footer"><span>銀座まちづくりビジョン検討｜都市比較ダッシュボード</span><span>Version 1.1 · 2026.09</span></footer>
+</main>
+
+<script>
+const uses=[
+  {key:'office',label:'事務所',short:'事務所',color:'#5288ff'},
+  {key:'commerce',label:'商業・住商併用',short:'商業',color:'#ffb23e',light:true},
+  {key:'hotel_leisure',label:'宿泊・遊興・興行',short:'宿泊・遊興',color:'#ef6f6c'},
+  {key:'residential',label:'住宅',short:'住宅',color:'#68c4a3',light:true},
+  {key:'public',label:'公共・教育・医療等',short:'公共等',color:'#9b79ff'},
+  {key:'production',label:'工場・物流等',short:'工場・物流',color:'#45a5b5'},
+  {key:'other',label:'その他・不明',short:'その他',color:'#62646f'}
+];
+const cities=[
+  {key:'ginza',name:'銀座',boundary:'銀座1〜8丁目',building_count:1833,median_footprint_m2:99,median_floors:7,estimated_far_pct:394,use:{office:53.4,commerce:26.0,hotel_leisure:12.8,residential:4.8,public:2.9,production:.2,other:0},title:'来街者型の業務都心',profile:'事務所が過半を占めつつ、商業と宿泊・遊興が38.8%。業務と来街者機能が重なる。'},
+  {key:'marunouchi',name:'丸の内',boundary:'丸の内1〜3丁目',building_count:78,median_footprint_m2:3224,median_floors:11,estimated_far_pct:625,use:{office:81.4,commerce:4.0,hotel_leisure:2.1,residential:0,public:5.6,production:6.9,other:0},title:'業務特化型',profile:'事務所が81.4%。商業・宿泊等は6.1%にとどまり、明確な業務中心地。'},
+  {key:'nihonbashi',name:'日本橋・室町',boundary:'日本橋1〜3丁目＋日本橋室町1〜4丁目',building_count:566,median_footprint_m2:94,median_floors:6,estimated_far_pct:529,use:{office:83.4,commerce:14.6,hotel_leisure:.7,residential:.6,public:.6,production:.1,other:0},title:'業務・商業型',profile:'事務所が83.4%と5地区で最大。商業は共存するが、銀座より業務への集中が強い。'},
+  {key:'omotesando',name:'表参道',boundary:'北青山3丁目＋神宮前4〜6丁目',building_count:1713,median_footprint_m2:104,median_floors:3,estimated_far_pct:183,use:{office:28.7,commerce:38.6,hotel_leisure:2.9,residential:23.6,public:6.1,production:.1,other:0},title:'商業・居住混在型',profile:'商業が最大用途。事務所と住宅も厚く、街路型商業地に生活機能が混在する。'},
+  {key:'asakusa',name:'浅草',boundary:'浅草1〜2丁目',building_count:1230,median_footprint_m2:54,median_floors:3,estimated_far_pct:171,use:{office:4.1,commerce:38.5,hotel_leisure:27.1,residential:20.4,public:9.2,production:.6,other:.5},title:'観光・生活型',profile:'商業と宿泊・遊興が65.6%。住宅も20.4%あり、観光と生活が同居する。'}
+];
+document.querySelector('#use-legend').innerHTML=uses.map(u=>`<span class="legend-item"><i class="swatch" style="background:${u.color}"></i>${u.label}</span>`).join('');
+document.querySelector('#use-bands').innerHTML=cities.map(c=>{
+  const segs=uses.map(u=>{const p=c.use[u.key]||0;return `<span class="segment ${u.light?'light':''}" style="width:${p}%;background:${u.color}" title="${u.label} ${p.toFixed(1)}%">${p>=9?u.short+' '+p.toFixed(1):''}</span>`}).join('');
+  return `<div class="band-row"><div class="band-name">${c.name}</div><div class="band" role="img" aria-label="${c.name}の建物用途構成">${segs}</div></div>`;
+}).join('');
+document.querySelector('#profiles').innerHTML=cities.map(c=>`<article class="profile ${c.key==='ginza'?'ginza':''}"><h3>${c.name}</h3><div class="boundary">${c.boundary}</div><strong>${c.title}</strong><p>${c.profile}</p><div class="profile-stat">事務所 ${c.use.office.toFixed(1)}% ／ 来街者向け ${(c.use.commerce+c.use.hotel_leisure).toFixed(1)}%</div></article>`).join('');
+document.querySelector('#support-body').innerHTML=cities.map(c=>`<tr class="${c.key==='ginza'?'focus':''}"><td>${c.name}</td><td>${c.median_footprint_m2.toLocaleString('ja-JP')}㎡</td><td>${c.median_floors}階</td><td>${c.estimated_far_pct}%</td></tr>`).join('');
+</script>
+</body>
+</html>
